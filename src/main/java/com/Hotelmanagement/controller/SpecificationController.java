@@ -3,44 +3,32 @@ package com.Hotelmanagement.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Hotelmanagement.entity.Address;
 import com.Hotelmanagement.entity.Hotel;
+import com.Hotelmanagement.repository.HotelRepository;
 import com.Hotelmanagement.service.HotelManagementService;
+import com.Hotelmanagement.specification.HotelSpecification;
 
 @RestController
-@RequestMapping("/hotel")
-public class HotelController {
+@RequestMapping("/specification")
+public class SpecificationController {
 
 	@Autowired
 	private HotelManagementService service;
 
-	@PostMapping("/save")
-	public Hotel saveHotel(@RequestBody Hotel hotel) {
-		Hotel saveHotel = service.saveHotel(hotel);
-		return saveHotel;
+	@Autowired
+	private HotelRepository repository;
 
-	}
-
-	@GetMapping("/all")
-	public List<Hotel> getAllHotel() {
-		List<Hotel> allHotel = service.getAllHotel();
-		return allHotel;
-	}
-
-	// address data save hoyil in db
 	@GetMapping("/search")
 	public List<Hotel> searchHotel(@RequestParam String name, @RequestParam Address address) {
-		List<Hotel> searchHotel = service.searchHotel(name, address);
-		return searchHotel;
+		Specification<Hotel> specification = Specification.where(
+				HotelSpecification.searchHotelbyName(name).and(HotelSpecification.searchHotelbyAddress(address)));
+		return repository.findAll(specification);
 	}
-	
-	
-
 }
