@@ -9,12 +9,12 @@ import com.Hotelmanagement.entity.Address;
 import com.Hotelmanagement.entity.Hotel;
 
 @Repository
-public interface HotelRepository extends JpaRepository<Hotel, Long> {
+public interface HotelRepository extends  JpaRepository<Hotel, Long>,HotelCustomRepositoryInterface{
 
-	List<Hotel> findAllByNameAndAddress(String name, Address address);
+//	List<Hotel> findAllByNameAndAddress(String name, Address address);
+ 
+//	List<Hotel>	findAllByNameAndCityAndPin(String name,String city,String pin);
 
 	boolean existsById(Long id);
-	
-	
 
 }

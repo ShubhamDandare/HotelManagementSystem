@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.Hotelmanagement.entity.Address;
 import com.Hotelmanagement.entity.Hotel;
+import com.Hotelmanagement.repository.AddressRepository;
 import com.Hotelmanagement.repository.HotelRepository;
 
 @Service
@@ -14,6 +15,9 @@ public class HotelManagementService {
 
 	@Autowired
 	private HotelRepository hotelRepository;
+
+	@Autowired
+	private AddressRepository addressRepository;
 
 	public Hotel saveHotel(Hotel hotel) {
 		Hotel save = hotelRepository.save(hotel);
@@ -39,4 +43,5 @@ public class HotelManagementService {
 		return findAllByNameAndLocation;
 	}
 
+	
 }

@@ -20,22 +20,31 @@ public class HotelController {
 
 	@Autowired
 	private HotelManagementService service;
-	
+
 	@PostMapping("/save")
 	public Hotel saveHotel(@RequestBody Hotel hotel) {
 		Hotel saveHotel = service.saveHotel(hotel);
 		return saveHotel;
-		
+
 	}
+
 	@GetMapping("/all")
-	public List<Hotel> getAllHotel(){
+	public List<Hotel> getAllHotel() {
 		List<Hotel> allHotel = service.getAllHotel();
 		return allHotel;
 	}
-	
+
+	// address data save hoyil in db
 	@GetMapping("/search")
-	public List<Hotel> searchHotel(@RequestParam String name,@RequestParam Address location){
-		List<Hotel> searchHotel = service.searchHotel(name, location);
+	public List<Hotel> searchHotel(@RequestParam String name, @RequestParam Address address) {
+		List<Hotel> searchHotel = service.searchHotel(name, address);
 		return searchHotel;
-	} 
+	}
+	
+	@PostMapping("/search/post")
+	public List<Hotel> searchHotelbypost(@RequestParam String name, @RequestBody Address address) {
+		List<Hotel> searchHotel = service.searchHotel(name, address);
+		return searchHotel;
+	}
+
 }
